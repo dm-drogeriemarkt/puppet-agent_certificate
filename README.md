@@ -1,4 +1,4 @@
-# agent_certificate
+# agent_certificate Puppet Module
 
 This module allows to auto-renew Puppet Agent certificates
 
