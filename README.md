@@ -26,6 +26,20 @@ This module ships three additional facts:
   it's lifetime
 * **agent_certificate_path**: Agent `hostcert` setting
 
+During catalog compilation, a pending CSR will be validated. If accepted (read
+the [Security](#security) section for details), the following steps take place
+on your compile master during (one single) catalog compile time:
+
+* in case the CA knows about the former certificate, it will be deleted (NOT
+  revoked)
+* the new CSR will be sent to the CA
+* your CA server will be told to sign the new CSR
+* the new Certificate will be fetched
+* the Puppet catalog will contain file definitions backing up your old and
+  creating the new certificate file on your Agent
+
+The next Puppet Run should then take place with the renewed certificate.
+
 ## Security
 
 We cannot trust facts, so the following checks are applied at server side:
