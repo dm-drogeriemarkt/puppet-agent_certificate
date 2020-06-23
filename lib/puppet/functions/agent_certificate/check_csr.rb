@@ -18,10 +18,12 @@ Puppet::Functions.create_function(:'agent_certificate::check_csr') do
       call_function('info', message)
     end
     ca.assert_valid_csr(name, OpenSSL::X509::Request.new(csr))
-    call_function('create_resources', 'notify', {
-        'CSR is valid': {
-            message: "CSR submitted for #{name} would be accepted valid"
-      }
-    })
+    call_function(
+      'create_resources',
+      'notify',
+      'CSR is valid' => {
+        message: "CSR submitted for #{name} would be accepted valid",
+      },
+    )
   end
 end
