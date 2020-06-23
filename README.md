@@ -103,10 +103,10 @@ class { 'agent_certificate::auto_renew':
 Don't let **dry mode** scare you, it is not a requirement for noop/test runs.
 This module also supports `--noop`. The challenge was that Facter doesn't care
 about `--noop` (there is no reason it should), and server-side Puppet functions
-are triggered run in `noop` mode too. So as experiences Puppet users might
-expect, this could have undesired side-effects if we wouldn't care.
+are triggered run in `noop` mode too. So as experienced Puppet users might
+expect, this could have had undesired side-effects if we wouldn't care.
 
-Be assured, `--noop` "just works" as expected.
+But we do, so be assured: `--noop` "just works" as expected.
 
 
 ## Limitations
