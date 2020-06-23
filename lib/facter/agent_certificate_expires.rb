@@ -4,8 +4,7 @@ Facter.add(:agent_certificate_expires) do
     cert_file = "#{Puppet.settings[:certdir]}/#{certname}.pem"
     if File.exist?(cert_file)
       cert = Puppet::SSL::Certificate.indirection.find(certname)
-## TODO: fix this override
-      !expires_soon?(cert.content)
+      expires_soon?(cert.content)
     else
       false
     end
