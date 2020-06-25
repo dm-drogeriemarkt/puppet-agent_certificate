@@ -1,22 +1,20 @@
 # @summary
-#   This triggers renewal. Should not be called directly
+#   This triggers renewal. Should be called from agent_certificate::auto_renew
 class agent_certificate::force_renewal {
-  $certname = $::trusted['certname']
-  $csr = $::agent_certificate_csr
-  $path = $::agent_certificate_path
-  unless $certname {
-    fail "Got no trusted certificate name from the Puppet Agent (FQDN: '${::fqdn}')"
+  assert_private()
+
+  unless $::facts['agent_certificate_csr'] {
+    fail 'Certificate renewal requested, but got no CSR (Fact agent_certificate_cs is empty)'
   }
-  unless $csr {
-    fail 'Certificate renewal requested, but got no CSR ("$::agent_certificate_cs")'
+
+  unless $::facts['agent_certificate_path'] {
+    fail 'Certificate renewal requested, but got no path to client certificate (Fact agent_certificate_path is empty)'
   }
-  unless $path {
-    fail 'Certificate renewal requested, but got no path to client certificate ("$::agent_certificate_path")'
-  }
-  $cert = ::agent_certificate::renew($certname, $csr)
-  file { "${path}.old":
-    source => $path,
-  } -> file { $path:
+
+  $cert = ::agent_certificate::renew($::trusted['certname'], $::facts['agent_certificate_csr'], $::agent_certificate::expiration)
+  file { "${::facts['agent_certificate_path']}.old":
+    source => $::facts['agent_certificate_path'],
+  } -> file { $::facts['agent_certificate_path']:
     content => $cert,
     owner   => 'root',
     group   => 'root',
