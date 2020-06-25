@@ -12,7 +12,7 @@ Puppet::Functions.create_function(:'agent_certificate::check_csr') do
   # @param [String] csr
   def check_csr(name, csr)
     require File.expand_path('../../../util/agent_certificate/simple_ca', __FILE__)
-    ca = Puppet::Util::SimpleCa.new(Puppet.settings)
+    ca = Puppet::Util::AgentCertificate::SimpleCa.new(Puppet.settings)
 
     ca.with_info do |message|
       call_function('info', message)
