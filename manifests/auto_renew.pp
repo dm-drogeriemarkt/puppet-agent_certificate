@@ -3,10 +3,10 @@
 #
 # for more Info and Examples see init.pp
 class agent_certificate::auto_renew() {
-  if $::fact['agent_certificate_expires'] {
+  if $::facts['agent_certificate_expires'] {
     contain agent_certificate
 
-    if $::fact['clientnoop'] or $::agent_certificate::dry_mode {
+    if $::facts['clientnoop'] or $::agent_certificate::dry_mode {
       contain agent_certificate::simulate_renewal
     } else {
       contain agent_certificate::force_renewal
