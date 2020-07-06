@@ -15,6 +15,6 @@ Facter.add(:agent_certificate_expires) do
   def expires_soon?(cert, percent = 15)
     time_left = cert.not_after - Time.now
     time_total = cert.not_after - cert.not_before
-    time_left / time_total < (percent / 100)
+    time_left / time_total < (percent / 100.0)
   end
 end
