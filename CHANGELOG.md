@@ -7,7 +7,7 @@ Please read carefully before upgrading
 
 **Features**
 
-- fully implemented 
+- fully implemented
 
 **Bugfixes**
 

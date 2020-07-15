@@ -1,4 +1,4 @@
 ---
-agent_certificate::dry_mode: true
+agent_certificate::auto_renew::dry_mode: true
 # 60 seconds * 60 minutes * 24 hours * 180 days
-agent_certificate::expiration: 15552000
+agent_certificate::auto_renew::expiration: 15552000
