@@ -1,0 +1,44 @@
+---
+name: CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  static:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.5.7
+      - run: |
+          bundle install
+      - run: |
+          bundle exec rake check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint
+
+  spec:
+    runs-on: ubuntu-18.04
+    needs: static
+    strategy:
+      fail-fast: false
+      matrix:
+        puppet-version: [5.0, 6.0]
+        ruby-version: [2.4.5, 2.5.7]
+        exclude:
+          - puppet-version: 5.0
+            ruby-version: 2.5.7
+    env:
+      PUPPET_GEM_VERSION: "~> ${{ matrix.puppet-version }}"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - run: |
+          bundle install
+      - run: |
+          bundle exec rake parallel_spec
