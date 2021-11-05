@@ -3,8 +3,9 @@ Facter.add(:agent_certificate_expires) do
     certname = Puppet.settings[:certname]
     cert_file = "#{Puppet.settings[:certdir]}/#{certname}.pem"
     if File.exist?(cert_file)
-      cert = Puppet::SSL::Certificate.indirection.find(certname)
-      expires_soon?(cert.content)
+      raw = File.read(cert_file)
+      cert = OpenSSL::X509::Certificate.new(raw)
+      expires_soon?(cert)
     else
       false
     end
