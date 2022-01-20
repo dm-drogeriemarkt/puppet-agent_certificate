@@ -28,8 +28,12 @@ class agent_certificate::force_renewal {
       mode    => '0644',
     }
   } else {
-    exec { 'update puppet-agent certificate':
-      command => "echo ${cert} > ${agent_cert_path}",
+    file { "${agent_cert_path}.tmp":
+      content => $cert,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
     }
+    -> exec { "mv ${agent_cert_path}.tmp ${agent_cert_path}": }
   }
 }
