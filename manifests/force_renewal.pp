@@ -18,10 +18,18 @@ class agent_certificate::force_renewal {
   $cert = ::agent_certificate::renew($agent_certname, $agent_cert_csr, $::agent_certificate::auto_renew::expiration)
   file { "${agent_cert_path}.old":
     source => $agent_cert_path,
-  } -> file { $agent_cert_path:
-    content => $cert,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+  }
+
+  unless defined(File[$agent_cert_path]) {
+    file { $agent_cert_path:
+      content => $cert,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
+  } else {
+    exec { 'update puppet-agent certificate':
+      command => "echo ${cert} > ${agent_cert_path}",
+    }
   }
 }
