@@ -106,7 +106,7 @@ module Puppet::Util::AgentCertificate
     # @param [Net::HTTPResponse] response
     # @return [String]
     def parse_response(response)
-      if response['content-type'].to_s =~ %r{json}
+      if response['content-type'].to_s.include?('json')
         JSON.parse(response.body)
       else
         response.body.to_s

@@ -13,7 +13,7 @@
 #   class { 'agent_certificate::auto_renew':
 #     dry_mode => false,
 #   }
-class agent_certificate::auto_renew(
+class agent_certificate::auto_renew (
   Integer $expiration,
   Boolean $dry_mode,
 ) {
