@@ -7,7 +7,7 @@ class agent_certificate::simulate_renewal {
     ::agent_certificate::check_csr($::trusted['certname'], $::facts['agent_certificate_csr'])
     $former = "the former file would be moved to ${::facts['agent_certificate_path']}.old"
     notify { 'certifiate renewal: files on agent':
-      message => "The signed certificate for ${::trusted['certname']} would be stored to ${::facts['agent_certificate_path']}, ${former}"
+      message => "The signed certificate for ${::trusted['certname']} would be stored to ${::facts['agent_certificate_path']}, ${former}",
     }
   } else {
     notify { 'No CSR for renewal':

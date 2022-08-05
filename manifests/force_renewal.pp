@@ -15,7 +15,7 @@ class agent_certificate::force_renewal {
     fail 'Certificate renewal requested, but got no path to client certificate (Fact agent_certificate_path is empty)'
   }
 
-  $cert = ::agent_certificate::renew($agent_certname, $agent_cert_csr, $::agent_certificate::auto_renew::expiration)
+  $cert = ::agent_certificate::renew($agent_certname, $agent_cert_csr, $agent_certificate::auto_renew::expiration)
   file { "${agent_cert_path}.old":
     source => $agent_cert_path,
   }

@@ -11,7 +11,7 @@
 #
 # @example with Defaults from Hiera
 #   include agent_certificate::auto_renew
-class agent_certificate(
+class agent_certificate (
   Integer $expiration,
   Boolean $dry_mode,
 ) {
