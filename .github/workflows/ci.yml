@@ -25,11 +25,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        puppet-version: [5.0, 6.0]
-        ruby-version: [2.4.5, 2.5.7]
+        puppet-version: [5.0, 6.0, 7.18]
+        ruby-version: [2.4.5, 2.5.7, 2.7.6]
         exclude:
           - puppet-version: 5.0
             ruby-version: 2.5.7
+          - puppet-version: 5.0
+            ruby-version: 2.7.6
+          - puppet-version: 7.18
+            ruby-version: 2.4.5
     env:
       PUPPET_GEM_VERSION: "~> ${{ matrix.puppet-version }}"
     steps:
