@@ -1,5 +1,9 @@
 # agent_certificate Puppet Module
 
+> [!WARNING]
+> **DEPRECATION**: Puppet 8.2 has introduced a build-in way of renewing an agent certificate before it expires: <https://www.puppet.com/docs/puppet/8/server/http_certificate_renew>
+> Therefore, we are deprecating this puppet module and recommend using the official way.
+
 [<img src="https://opensourcelogos.aws.dmtech.cloud/dmTECH_opensource_logo.svg" height="21" width="130">](https://www.dmtech.de/)
 
 This module allows to auto-renew Puppet Agent certificates
