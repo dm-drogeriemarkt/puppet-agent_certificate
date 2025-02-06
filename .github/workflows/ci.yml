@@ -7,7 +7,7 @@ on:
 
 jobs:
   static:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby
@@ -20,7 +20,7 @@ jobs:
           bundle exec rake check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint
 
   spec:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: static
     strategy:
       fail-fast: false
